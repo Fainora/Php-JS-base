@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3. Интеграция Bootstrap и jquery</title>
+</head>
+<!-- Ссылки берем с оф.сайта Bootstrap -->
+<!-- Можно подключать библиотке как через CDN (ссылки), так и скачивая файл и из папки подключать -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<style>
+    .cube {
+    width: 50px;
+    height: 50px;
+    background: blue;
+    margin: 30px;
+    }
+    .block {
+    position: absolute;
+    background-color: #abc;
+    left: 50px;
+    width: 90px;
+    height: 90px;
+    margin: 5px;
+  }
+  .block1 {
+    background-color: #bca;
+    width: 200px;
+    height: 1.7em;
+    text-align: center;
+    border: 2px solid green;
+    margin: 3px;
+    font-size: 14px;
+  }
+</style>
+<body>
+<!-- Меню-навигация -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">На главную</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="https://getbootstrap.com/">Bootstrap</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://jquery.com/">JQuery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="benefits.html">Преимущества</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="animation.html">Анимации</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+<!-- Анимация перемещения куба -->
+<div class="one">
+    <button id="go">Запустить анимацию</button>
+    <button id="stop">Остановить</button>
+    <div class="cube"></div>
+</div>
+<!-- Анимация надписи -->
+<dvi class="three">
+    <button id="go1">&raquo; Animate Block1</button>
+    <button id="go4">&raquo; Reset</button>
+    <div class="block1">Block1</div>
+</dvi>
+<!-- Анимация передвижения куба влево или впрво -->
+<div class="two">
+    <button id="left">&laquo;</button>
+    <button id="right">&raquo;</button>
+    <div class="block"></div>
+</div>
+
+<script>
+    //Для первого примера
+$('#go').on('click', f_startAnimation);
+$('#stop').on('click', f_stopAnimation);
+
+function f_stopAnimation (){
+   $('.cube').stop(); //останавливаем
+ }
+ 
+ function f_startAnimation() { //запускаем анимацию
+   $('.cube')
+     .animate({ //увеличиваем куб до 100px в течении 2с (2000мс)
+     width: '100px',
+     height: '100px',
+     background: 'red'
+   }, 2000)
+     .animate({ //передвигаем его
+     'margin-left': '150px',
+     'margin-top': '150px'
+   }, 2000)
+   .animate({
+        left: '250px',
+        opacity: '0.5', //делаем немного прозрачным
+        height: '150px',
+        width: '150px'
+    }, 2000);
+ }
+
+ //для второго примера
+$( "#go1" ).click(function() {
+  $( ".block1" )
+    .animate({
+      width: "90%"
+    }, {
+      queue: false,
+      duration: 3000
+    })
+    .animate({ fontSize: "24px" }, 1500 )
+    .animate({ borderRightWidth: "15px" }, 1500 );
+});
+
+$( "#go4" ).click(function() {
+  $( "div" ).css({
+    width: "",
+    fontSize: "",
+    borderWidth: ""
+  });
+});
+
+ //для третьего примера
+ $( "#right" ).click(function() {
+  $( ".block" ).animate({ "left": "+=50px" }, "slow" );
+});
+ 
+$( "#left" ).click(function(){
+  $( ".block" ).animate({ "left": "-=50px" }, "slow" );
+});
+
+</script>
+</body>
+</html>
